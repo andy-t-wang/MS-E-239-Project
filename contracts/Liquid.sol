@@ -13,12 +13,11 @@ contract Liquid is ERC4626, Ownable {
         rebasingBalance = 0;
     }
 
-    function totalAssets() public view override returns (uint256) {
-        return asset.balanceOf(address(this)) + rebasingBalance;
-    }
+    /* ========== MUTATIVE FUNCTIONS ========== */
 
     function pullToStake(uint256 _amount) public onlyOwner {
         asset.transfer(msg.sender, _amount);
+        require(_maintainsLiquidity());
         rebasingBalance += _amount;
         emit Pull(msg.sender, _amount);
     }
@@ -27,7 +26,22 @@ contract Liquid is ERC4626, Ownable {
         rebasingBalance = _amount;
     }
 
+    /* ========== VIEW FUNCTIONS ========== */
+
+    function totalAssets() public view override returns (uint256) {
+        return asset.balanceOf(address(this)) + rebasingBalance;
+    }
+
     function maxDeposit(address) public view override returns (uint256) {
         return 250 * (10**asset.decimals());
+    }
+
+    /* ========== INTERNAL FUNCTIONS ========== */
+
+    function _maintainsLiquidity() internal view returns (bool) {
+        uint256 curBalance = asset.balanceOf(address(this));
+        uint256 minBalance = totalAssets() / 10;
+
+        return curBalance >= minBalance;
     }
 }
