@@ -29,7 +29,7 @@ contract Liquid is ERC4626, Ownable {
     /* ========== VIEW FUNCTIONS ========== */
 
     function totalAssets() public view override returns (uint256) {
-        return asset.balanceOf(address(this)) + rebasingBalance;
+        return ((asset.balanceOf(address(this)) + rebasingBalance) / 10) * 9;
     }
 
     function maxDeposit(address) public view override returns (uint256) {

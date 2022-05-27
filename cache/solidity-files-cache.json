@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/andywang/Documents/MainCS/stanford/LiquidStaking/contracts/Liquid.sol": {
-      "lastModificationDate": 1653681381767,
-      "contentHash": "6a69d715905f30871a904ae1166ad0b7",
+      "lastModificationDate": 1653682238206,
+      "contentHash": "f2bc9fea2ee05377d67b6f99e586e799",
       "sourceName": "contracts/Liquid.sol",
       "solcConfig": {
         "version": "0.8.1",
